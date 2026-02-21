@@ -1,31 +1,53 @@
-# Pairs Trading (Statistical Arbitrage) Project
+# 📊 Pairs Trading (Statistical Arbitrage) Project
 
-This project is a small research tool for testing equity pairs trading strategies in Python.
+An interactive statistical arbitrage research tool built in Python.
 
-It implements:
-
-- Regression-based hedge ratio (beta)
-- Engle–Granger cointegration test
-- Z-score mean reversion signals
-- Simple backtest
-- Equity curve visualization
-- Sharpe ratio calculation
+This project implements a pairs trading framework using cointegration testing,
+regression-based hedge ratios, and mean-reversion signals. It includes both a
+command-line research interface and an interactive Panel dashboard.
 
 ---
 
-## How It Works
+## ✨ Features
+
+- Engle–Granger cointegration test
+- OLS hedge ratio (beta) estimation
+- Z-score mean reversion signals
+- Backtested equity curve
+- Sharpe ratio calculation
+- Interactive dashboard (HoloViz Panel)
+- Adjustable tickers, date range, and plot size
+- Plot + Data tabs
+
+---
+
+## 🧠 Strategy Overview
 
 1. Download historical price data using `yfinance`
-2. Test if two stocks are cointegrated
-3. Estimate hedge ratio using linear regression
+2. Test whether two equities are cointegrated
+3. Estimate hedge ratio via linear regression
 4. Construct the spread
 5. Generate z-score trading signals
 6. Backtest the strategy
-7. Plot the equity curve
+7. Visualize equity curve and underlying data
 
 ---
 
-## Installation
+## 📁 Project Structure
+
+```
+data.py         # Price downloading
+signals.py      # Hedge ratio, z-score, cointegration
+backtest.py     # PnL + Sharpe calculation
+plots.py        # Plotly equity curve visualization
+main.py         # CLI research tool
+app.py          # Interactive Panel dashboard
+requirements.txt
+```
+
+---
+
+## 🚀 Installation
 
 Install required packages:
 
@@ -36,54 +58,65 @@ pip install -r requirements.txt
 Or manually:
 
 ```bash
-pip install yfinance pandas numpy statsmodels matplotlib
+pip install pandas numpy yfinance statsmodels plotly panel
 ```
 
 ---
 
-## How to Run
+## ▶ Run (CLI Version)
 
-From the project root:
-
-```bash
-cd src
-python main.py TICKER1 TICKER2
-```
-
-Examples:
+Quick research test from terminal:
 
 ```bash
 python main.py V MA
+```
+
+Example pairs:
+
+```bash
 python main.py KO PEP
 python main.py XOM CVX
 python main.py JPM BAC
 ```
 
----
+The CLI prints:
 
-## Output
-
-The program prints:
-
-- Number of rows and date range
+- Date range
 - Cointegration p-value
-- Hedge ratio (beta)
+- Beta
 - Sharpe ratio
-
-It also displays an equity curve plot.
-
----
-
-## Interpretation
-
-- Cointegration p-value < 0.05 suggests statistical validity.
-- Higher Sharpe ratio indicates better risk-adjusted performance.
-- Upward sloping equity curve suggests positive strategy edge.
-- Large drawdowns indicate instability.
+- Displays equity curve
 
 ---
 
-## Limitations
+## 🖥 Interactive Dashboard
+
+Run the dashboard:
+
+```bash
+python app.py
+```
+
+The dashboard allows users to:
+
+- Input custom ticker pairs
+- Select start and end dates
+- Toggle log prices
+- Adjust plot width and height
+- View Plot and Data tabs
+
+---
+
+## 📊 Interpretation
+
+- **Cointegration p-value < 0.05** → strong statistical evidence of mean reversion  
+- **Higher Sharpe ratio** → better risk-adjusted performance  
+- **Upward equity curve** → positive strategy edge  
+- Large drawdowns → instability  
+
+---
+
+## ⚠ Limitations
 
 This is a research prototype and does NOT include:
 
@@ -91,17 +124,22 @@ This is a research prototype and does NOT include:
 - Slippage
 - Borrow fees
 - Capital-based position sizing
-- Risk controls
+- Risk management constraints
 
 ---
 
-## Future Improvements
-
-Potential upgrades:
+## 🔮 Future Improvements
 
 - Rolling hedge ratio
 - Rolling cointegration testing
 - Transaction cost modeling
 - Dollar-neutral position sizing
-- Automatic pair scanning across multiple stocks
+- Automated pair scanning across a universe
 - Half-life estimation of mean reversion
+
+---
+
+## 📌 Key Insight
+
+Economic similarity alone does not guarantee statistical mean reversion.
+Pairs must be validated using formal cointegration testing before deployment.
