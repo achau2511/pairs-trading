@@ -16,13 +16,13 @@ def compute_zscore(spread, window=60):
     return z
 
 def generate_signals(z):
-    pos = pd.Series(0, index=z.index)
+    pos = pd.Series(np.nan, index=z.index)
 
     pos[z > 2] = -1
     pos[z < -2] = 1
     pos[abs(z) < 0.5] = 0
 
-    return pos.ffill()
+    return pos.ffill().fillna(0)
 
 def cointegration_test(y, x):
     score, pvalue, _ = coint(y, x)
